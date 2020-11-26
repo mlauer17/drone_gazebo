@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<gazebo>
+  <plugin name="imu" filename="libgazebo_ros_imu.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>100.0</updateRate> 
+    <bodyName>drone_link</bodyName>
+    <topicName>/drone/sensors/imu</topicName>
+    <gaussianNoise>0.0</gaussianNoise>
+    <xyzOffsets>0 0 0</xyzOffsets>
+    <rpyOffsets>0 0 0</rpyOffsets>
+  </plugin>
+</gazebo>
+
+<gazebo reference="imu_link">
+  <gravity>true</gravity>
+  <sensor name="imu_sensor" type="imu">
+    <always_on>true</always_on>
+    <update_rate>100</update_rate>
+    <visualize>true</visualize>
+    <topic>__default_topic__</topic>
+    <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+      <topicName>/drone/sensors/imu_grav</topicName>
+      <bodyName>imu_link</bodyName>
+      <updateRateHZ>100.0</updateRateHZ>
+      <gaussianNoise>0.0</gaussianNoise>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 0 0</rpyOffset>
+      <frameName>imu_link</frameName>
+      <initialOrientationAsReference>false</initialOrientationAsReference>
+    </plugin>
+    <pose>0 0 0 0 0 0</pose>
+  </sensor>
+</gazebo>
+
+<gazebo>
+  <plugin name="gps" filename="libgazebo_ros_p3d.so">
+    <alwaysOn>true</alwaysOn>
+    <frameName>map</frameName>
+    <bodyName>drone_link</bodyName>
+    <topicName>/drone/sensors/gps</topicName>
+    <updateRate>10.0</updateRate>
+    <gaussianNoise>0.0</gaussianNoise>
+  </plugin>
+</gazebo>
+
+<gazebo>
+  <plugin name="gps_hack" filename="libgazebo_ros_p3d.so">
+    <alwaysOn>true</alwaysOn>
+    <frameName>map</frameName>
+    <bodyName>drone_link</bodyName>
+    <topicName>/drone/sensors/gps_hack</topicName>
+    <updateRate>100.0</updateRate>
+    <gaussianNoise>0.0</gaussianNoise>
+  </plugin>
+</gazebo>
+
+<!--
+<gazebo>
+  <plugin name ="object_controller" filename="libgazebo_ros_planar_move.so">
+    <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <odometryRate>500</odometryRate>
+    <robotBaseFrame>drone_link></robotBaseFrame>
+  </plugin>
+</gazebo>
+-->
+
+<gazebo>
+  <plugin name="gazebo_ros_force" filename="libgazebo_ros_force.so">
+    <alwaysOn>false</alwaysOn>
+    <update>100</update>
+    <updateRate>100.0</updateRate>
+    <bodyName>frame_link</bodyName>
+    <topicName>/drone/applied_forces</topicName>
+  </plugin>
+</gazebo>
+
+</robot>

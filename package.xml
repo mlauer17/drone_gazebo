@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>drone_gazebo</name>
+  <version>0.0.0</version>
+  <description>The drone_gazebo package</description>
+
+  <maintainer email="drone@todo.todo">kamil</maintainer>
+  <license>TODO</license>
+
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>gazebo_ros</depend>
+  <exec_depend>gazebo</exec_depend>
+
+  <depend>gazebo_msgs</depend>
+  <depend>tf</depend>
+  <depend>nav_msgs</depend>
+
+
+  <export>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
+
+</package>

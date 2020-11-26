@@ -1,0 +1,10 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/kamil/catkin_ws/devel/lib/python2.7/dist-packages",
+        "/home/kamil/gym-gazebo/gym_gazebo/envs/installation/catkin_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages",
+        "/opt/movidius/caffe/python",
+        "/home/kamil/.local/lib/python3.6/site-packages/tensorflow/models/research",
+        "/home/kamil/.local/lib/python3.6/site-packages/tensorflow/models/research/slim"
+    ]
+}
