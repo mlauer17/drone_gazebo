@@ -2,8 +2,6 @@ close all;
 clear all;
 clc;
 
-
-
 %% load other dataset
 load('data_v3.mat');
 GNSSData = gps';
@@ -60,7 +58,6 @@ H = eye(10);
 for i=1:n-1
 	for k=1:10
 	%% Math before filter
-% 		dt = ACCTime(temp)- ACCTime(temp-1);
 		% Extract angles from data
 		theta = theta + GYROData(1,temp)*dt;	%y - pitch
 		phi = phi + GYROData(2,temp)*dt;	%x - roll
@@ -80,7 +77,6 @@ for i=1:n-1
  		Rq1 = [	(q0^2+q1^2-q2^2-q3^2) 2*(q1*q2-q0*q3) 2*(q0*q2+q1*q3);
  				2*(q1*q2+q0*q3) (q0^2-q1^2+q2^2-q3^2) 2*(q1*q3-q0*q1);
  				2*(q1*q3-q0*q2) 2*(q0*q1+q2*q3) (q0^2-q1^2-q2^2+q3^2)	];
-		%Rq = quat2rotm([q0,[q1,q2,q3]])
 		Rq = [	1 0 0;
 				0 -1 0;
 				0 0 -1	];
@@ -96,17 +92,6 @@ for i=1:n-1
 		nW = sqrt(Wx^2+Wy^2+Wz^2);
 
 		% Jacobian
-% 		J = [	1 0 0 dt 0 0 0 0 0 0;
-% 				0 1 0 0 dt 0 0 0 0 0;
-% 				0 0 1 0 0 dt 0 0 0 0;
-% 				0 0 0 1 0 0 0 0 0 0;
-% 				0 0 0 0 1 0 0 0 0 0;
-% 				0 0 0 0 0 1 0 0 0 0;
-% 				0 0 0 0 0 0	cos((dt*nW)/2) cos((dt*nW)/2)-(Wz*sin((dt*nW)/2))/nW cos((dt*nW)/2)-(Wy*sin((dt*nW)/2))/nW cos((dt*nW)/2)-(Wx*sin((dt*nW)/2))/nW;
-% 				0 0 0 0 0 0 cos((dt*nW)/2)+(Wz*sin((dt*nW)/2))/nW cos((dt*nW)/2) cos((dt*nW)/2)-(Wx*sin((dt*nW)/2))/nW cos((dt*nW)/2)-(Wy*sin((dt*nW)/2))/nW;
-% 				0 0 0 0 0 0 cos((dt*nW)/2)-(Wy*sin((dt*nW)/2))/nW cos((dt*nW)/2)+(Wx*sin((dt*nW)/2))/nW cos((dt*nW)/2) cos((dt*nW)/2)-(Wz*sin((dt*nW)/2))/nW;
-% 				0 0 0 0 0 0 cos((dt*nW)/2)+(Wx*sin((dt*nW)/2))/nW cos((dt*nW)/2)+(Wy*sin((dt*nW)/2))/nW cos((dt*nW)/2)+(Wz*sin((dt*nW)/2))/nW cos((dt*nW)/2)	];
-
 			
 		J = [	1 0 0 dt 0 0 0 0 0 0;
 				0 1 0 0 dt 0 0 0 0 0;
@@ -120,13 +105,11 @@ for i=1:n-1
 				0 0 0 0 0 0 cos((dt*nW)/2)+(Wx*sin((dt*nW)/2))/nW cos((dt*nW)/2)+(Wy*sin((dt*nW)/2))/nW cos((dt*nW)/2)+(Wz*sin((dt*nW)/2))/nW cos((dt*nW)/2)	];
 
 		% Construct Q from insane formula
-		QTemp = (cos(0.5*dt*nW)*eye(4)+(1/nW)*sin(0.5*dt*nW)*Omega);
-
+		
 		% Update u
 		u = [(dt^2/2) (dt^2/2) (dt^2/2) dt dt dt 0 0 0 0]';
 		% Update B
  		B = [Rq1*(ACCData(:,temp)-g); Rq1*(ACCData(:,temp)-g); diag((cos(0.5*dt*nW)*eye(4)+(1/nW)*sin(0.5*dt*nW)*Omega))];
-		%B = [(ACCData(:,temp)-g); (ACCData(:,temp)-g); diag((cos(0.5*dt*nW)*eye(4)+(1/nW)*sin(0.5*dt*nW)*Omega))];
 		
 		% F
 		F = [	1 0 0 dt 0 0 0 0 0 0;
