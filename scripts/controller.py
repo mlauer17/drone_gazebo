@@ -16,7 +16,7 @@ from geometry_msgs.msg import Wrench
 import tf
 from tf.transformations import *
 
-g = 9.8
+g = 9.82
 mass = 1.5
 
 # Max linear velocities
