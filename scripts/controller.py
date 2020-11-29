@@ -94,7 +94,7 @@ class Controller():
         self.controller_output_pub = rospy.Publisher('/drone/applied_forces', Wrench, queue_size=1)
         
         # Subscribe to ground truth position and orientation data
-        self.state_sub = rospy.Subscriber('/drone/sensors/gps_hack', Odometry, self.newStateCB)
+        self.state_sub = rospy.Subscriber('/drone/sensors/gps_perfect', Odometry, self.newStateCB)
 
         # Subscribe to setpoints topic
         self.setpoint_sub = rospy.Subscriber('/drone/controller/setpoints', TwistStamped, self.newSetpointCB)
