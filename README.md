@@ -18,3 +18,7 @@
 * GPS measurements is published to `/drone/sensors/gps`
 * IMU measurements with and without gravity are published to `/drone/sensors/imu` and `/drone/sensors/imu_grav`
 * Noise can be simulated by changing values of `gaussianNoise` parameters in `drone.gazebo`
+
+## EKF/Matlab
+* `ExtendedKalman.m` contains the code used to generate the results in "Results" section
+* `ExtendedKalman_finished.m` contains the code for the improved version, shown in "Discussion" section
