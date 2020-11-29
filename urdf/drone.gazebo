@@ -46,7 +46,7 @@
 </gazebo>
 
 <gazebo>
-  <plugin name="gps_hack" filename="libgazebo_ros_p3d.so">
+  <plugin name="gps_perfect" filename="libgazebo_ros_p3d.so">
     <alwaysOn>true</alwaysOn>
     <frameName>map</frameName>
     <bodyName>drone_link</bodyName>
@@ -56,7 +56,7 @@
   </plugin>
 </gazebo>
 
-<!--
+<!-- Remove this comment if planar_move plugin is desired
 <gazebo>
   <plugin name ="object_controller" filename="libgazebo_ros_planar_move.so">
     <commandTopic>cmd_vel</commandTopic>
