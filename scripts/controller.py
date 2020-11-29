@@ -16,7 +16,7 @@ from geometry_msgs.msg import Wrench
 import tf
 from tf.transformations import *
 
-g = 9.8
+g = 9.82
 mass = 1.5
 
 # Max linear velocities
@@ -94,8 +94,7 @@ class Controller():
         self.controller_output_pub = rospy.Publisher('/drone/applied_forces', Wrench, queue_size=1)
         
         # Subscribe to ground truth position and orientation data
-        self.state_sub = rospy.Subscriber('/drone/sensors/gps', Odometry, self.newStateCB)
-        self.
+        self.state_sub = rospy.Subscriber('/drone/sensors/gps_perfect', Odometry, self.newStateCB)
 
         # Subscribe to setpoints topic
         self.setpoint_sub = rospy.Subscriber('/drone/controller/setpoints', TwistStamped, self.newSetpointCB)
@@ -152,8 +151,8 @@ class Controller():
         dt = (time_now - self.time_prev).nsecs*0.000000001
         self.time_prev = time_now
 
-        if dt < 0.001:
-            return
+        #if dt < 0.001:
+         #   return
         #########################################################
 
         self.state = data
